@@ -45,7 +45,7 @@ const BookingMordal = ({
       date: date.toLocaleDateString(),
     };
     // send to the sarver
-    fetch("http://localhost:5000/appointments", {
+    fetch("https://floating-retreat-87529.herokuapp.com/appointments", {
       method: "POST",
       headers: {
         "content-type": "application/json",
