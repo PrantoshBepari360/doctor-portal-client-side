@@ -8,16 +8,16 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import login from "../../../images/login.png";
 
 const Register = () => {
   const [loginData, setLoginData] = useState({});
 
-  const { user, registerUser, isLoading, authError} = useAuth();
+  const { user, registerUser, isLoading, authError } = useAuth();
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleOnBlur = (e) => {
     const field = e.target.name;
@@ -33,7 +33,7 @@ const Register = () => {
       alert("login password didn't match");
       return;
     }
-    registerUser(loginData.email, loginData.password, loginData.name, history);
+    registerUser(loginData.email, loginData.password, loginData.name, navigate);
     e.preventDefault();
   };
 
@@ -54,7 +54,7 @@ const Register = () => {
                 onBlur={handleOnBlur}
                 variant="standard"
               />
-              <br/>
+              <br />
               <TextField
                 sx={{ width: "75%", m: 1 }}
                 id="standard-basic"
@@ -99,9 +99,11 @@ const Register = () => {
             </form>
           )}
           {isLoading && <CircularProgress />}
-          <br/>
-          {user?.email && <Alert severity="success">User Created successfully</Alert>}
-          <br/>
+          <br />
+          {user?.email && (
+            <Alert severity="success">User Created successfully</Alert>
+          )}
+          <br />
           {authError && <Alert severity="error">{authError}</Alert>}
         </Grid>
         <Grid item xs={12} md={6}>

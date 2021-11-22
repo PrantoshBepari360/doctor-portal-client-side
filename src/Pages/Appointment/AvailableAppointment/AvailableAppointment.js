@@ -57,7 +57,7 @@ const AvailableAppointment = ({ date }) => {
       {bookingSuccess && (
         <Alert severity="success">Appointment Booked successfully</Alert>
       )}
-      <br/>
+      <br />
       <Grid container spacing={2}>
         {bookings.map((booking) => (
           <Booking

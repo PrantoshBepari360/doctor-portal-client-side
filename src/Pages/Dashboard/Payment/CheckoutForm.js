@@ -15,11 +15,14 @@ const CheckoutForm = ({ appointment }) => {
   const [clientSecret, setClientSecret] = useState("");
 
   useEffect(() => {
-    fetch("https://floating-retreat-87529.herokuapp.com/create-payment-intent", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ price }),
-    })
+    fetch(
+      "https://floating-retreat-87529.herokuapp.com/create-payment-intent",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ price }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret));
   }, [price]);
@@ -75,7 +78,7 @@ const CheckoutForm = ({ appointment }) => {
         amount: paymentIntent.amount,
         created: paymentIntent.created,
         last4: paymentMethod.card.last4,
-        transaction: paymentIntent.client_secret.slice('_secret')[0]
+        transaction: paymentIntent.client_secret.slice("_secret")[0],
       };
       const url = `https://floating-retreat-87529.herokuapp.com/appointments/${_id}`;
       fetch(url, {

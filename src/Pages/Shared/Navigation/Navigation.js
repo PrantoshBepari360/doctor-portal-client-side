@@ -41,7 +41,9 @@ const Navigation = () => {
               <NavLink style={styles} to="/dashboard">
                 <Button color="inherit">Dashboard</Button>
               </NavLink>
-              <Button onClick={logOut} color="inherit">Logout</Button>
+              <Button onClick={logOut} color="inherit">
+                Logout
+              </Button>
             </Box>
           ) : (
             <NavLink style={styles} to="/login">

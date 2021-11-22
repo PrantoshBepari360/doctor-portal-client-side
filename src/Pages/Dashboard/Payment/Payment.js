@@ -13,7 +13,9 @@ const Payment = () => {
   const [appointment, setAppointment] = useState({});
 
   useEffect(() => {
-    fetch(`https://floating-retreat-87529.herokuapp.com/appointments/${appointmentId}`)
+    fetch(
+      `https://floating-retreat-87529.herokuapp.com/appointments/${appointmentId}`
+    )
       .then((res) => res.json())
       .then((data) => setAppointment(data));
   }, [appointmentId]);

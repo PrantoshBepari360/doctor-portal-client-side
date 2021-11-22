@@ -16,13 +16,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
-import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
-import DashboardHome from "../DashboardHome/DashboardHome";
-import MakeAdmin from "../MakeAdmin/MakeAdmin";
-import AddDoctor from "../AddDoctor/AddDoctor";
+import { Link, Outlet } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
-import AdminRoute from "../../Login/AdminRoute/AdminRoute";
-import Payment from "../Payment/Payment";
 
 const drawerWidth = 200;
 
@@ -30,7 +25,6 @@ function Dashboard(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  let { path, url } = useRouteMatch();
   const { admin } = useAuth();
 
   const handleDrawerToggle = () => {
@@ -44,15 +38,15 @@ function Dashboard(props) {
       <Link to="/appointment">
         <Button color="inherit">Appointment</Button>
       </Link>
-      <Link to={`${url}`}>
+      <Link to="/dashboard">
         <Button color="inherit">Dashboard</Button>
       </Link>
       {admin && (
         <Box>
-          <Link to={`${url}/makeAdmin`}>
+          <Link to={`/dashboard/makeAdmin`}>
             <Button color="inherit">Make Admin</Button>
           </Link>
-          <Link to={`${url}/addDoctor`}>
+          <Link to={`/dashboard/addDoctor`}>
             <Button color="inherit">Add Doctor</Button>
           </Link>
         </Box>
@@ -145,31 +139,13 @@ function Dashboard(props) {
         }}
       >
         <Toolbar />
-
-        <Switch>
-          <Route exact path={path}>
-            <DashboardHome></DashboardHome>
-          </Route>
-          <Route path={`${path}/payment/:appointmentId`}>
-            <Payment></Payment>
-          </Route>
-          <AdminRoute path={`${path}/makeAdmin`}>
-            <MakeAdmin></MakeAdmin>
-          </AdminRoute>
-          <AdminRoute path={`${path}/addDoctor`}>
-            <AddDoctor></AddDoctor>
-          </AdminRoute>
-        </Switch>
+        <Outlet></Outlet>
       </Box>
     </Box>
   );
 }
 
 Dashboard.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window: PropTypes.func,
 };
 

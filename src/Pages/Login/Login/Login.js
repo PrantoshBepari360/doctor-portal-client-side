@@ -8,17 +8,18 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import { NavLink, useLocation, useHistory } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import login from "../../../images/login.png";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({});
 
-  const { loginUser, user, signInWidthGoogle, isLoading, authError } = useAuth();
+  const { loginUser, user, signInWidthGoogle, isLoading, authError } =
+    useAuth();
 
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleOnBlur = (e) => {
     const field = e.target.name;
@@ -29,13 +30,13 @@ const Login = () => {
   };
 
   const handleLoginSubmit = (e) => {
-    loginUser(loginData.email, loginData.password, location, history);
+    loginUser(loginData.email, loginData.password, location, navigate);
     e.preventDefault();
   };
 
   const handleGoogleSignIn = () => {
-    signInWidthGoogle(location, history)
-  }
+    signInWidthGoogle(location, navigate);
+  };
 
   return (
     <Container>
@@ -79,9 +80,11 @@ const Login = () => {
               </NavLink>
             </form>
           )}
-          <br/>
-          <Button onClick={handleGoogleSignIn} variant="contained">Google sign in</Button>
-          <br/>
+          <br />
+          <Button onClick={handleGoogleSignIn} variant="contained">
+            Google sign in
+          </Button>
+          <br />
           {isLoading && <CircularProgress />}
           <br />
           {user?.email && (

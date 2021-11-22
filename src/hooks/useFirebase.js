@@ -9,7 +9,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   updateProfile,
-  getIdToken
+  getIdToken,
 } from "firebase/auth";
 
 // initialize firebase app
@@ -20,12 +20,12 @@ const useFirebase = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [authError, setAuthError] = useState("");
   const [admin, setAdmin] = useState(false);
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState("");
 
   const auth = getAuth();
   const googleProvider = new GoogleAuthProvider();
 
-  const registerUser = (email, password, name, history) => {
+  const registerUser = (email, password, name, navigate) => {
     setIsLoading(true);
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -33,14 +33,14 @@ const useFirebase = () => {
         const newUser = { email, displayName: name };
         setUser(newUser);
         // set user to the database
-        saveUser(email, name, 'POST');
+        saveUser(email, name, "POST");
         // send name to firebase after creation
         updateProfile(auth.currentUser, {
           displayName: name,
         })
           .then(() => {})
           .catch((error) => {});
-        history.replace("/");
+        navigate("/");
       })
       .catch((error) => {
         setAuthError(error.message);
@@ -48,12 +48,12 @@ const useFirebase = () => {
       .finally(() => setIsLoading(false));
   };
 
-  const loginUser = (email, password, location, history) => {
+  const loginUser = (email, password, location, navigate) => {
     setIsLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const destination = location?.state?.from || "/home";
-        history.replace(destination);
+        navigate(destination);
         setAuthError("");
       })
       .catch((error) => {
@@ -62,15 +62,15 @@ const useFirebase = () => {
       .finally(() => setIsLoading(false));
   };
 
-  const signInWidthGoogle = (location, history) => {
+  const signInWidthGoogle = (location, navigate) => {
     setIsLoading(true);
     signInWithPopup(auth, googleProvider)
       .then((userCredential) => {
         const user = userCredential.user;
-        saveUser(user.email, user.displayName, 'PUT')
+        saveUser(user.email, user.displayName, "PUT");
         setAuthError("");
         const destination = location?.state?.from || "/home";
-        history.replace(destination);
+        navigate(destination);
       })
       .catch((error) => {
         setAuthError(error.message);
@@ -83,10 +83,9 @@ const useFirebase = () => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-        getIdToken(user)
-        .then(idToken => {
-          setToken(idToken)
-        })
+        getIdToken(user).then((idToken) => {
+          setToken(idToken);
+        });
       } else {
         setUser({});
       }
@@ -97,9 +96,9 @@ const useFirebase = () => {
 
   useEffect(() => {
     fetch(`https://floating-retreat-87529.herokuapp.com/users/${user.email}`)
-    .then(res => res.json())
-    .then(data => setAdmin(data.admin))
-  }, [user.email])
+      .then((res) => res.json())
+      .then((data) => setAdmin(data.admin));
+  }, [user.email]);
 
   const logOut = () => {
     setIsLoading(true);
@@ -118,11 +117,10 @@ const useFirebase = () => {
     fetch("https://floating-retreat-87529.herokuapp.com/users", {
       method: method,
       headers: {
-         "Content-Type": "application/json" 
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(user)
-    }).then()
-
+      body: JSON.stringify(user),
+    }).then();
   };
 
   return {

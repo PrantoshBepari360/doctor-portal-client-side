@@ -16,7 +16,7 @@ const Doctors = () => {
       <Container>
         <Grid container spacing={2}>
           {doctors.map((doctor) => (
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid key={doctor._id} item xs={12} sm={6} md={4}>
               <img
                 style={{ width: "100%", height: "70%" }}
                 src={`data:image/png;base64,${doctor.image}`}

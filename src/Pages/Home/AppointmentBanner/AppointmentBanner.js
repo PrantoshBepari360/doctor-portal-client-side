@@ -23,24 +23,32 @@ const AppointmentBanner = () => {
           item
           xs={12}
           md={6}
-          sx={{ display: "flex", justifyContent: "flex-start", alignItems: "center", textAlign: 'left' }}
+          sx={{
+            display: "flex",
+            justifyContent: "flex-start",
+            alignItems: "center",
+            textAlign: "left",
+          }}
         >
           <Box>
             <Typography variant="h6" style={{ color: "#5CE7ED" }}>
               Appoinment
             </Typography>
-            <Typography variant="h4" sx={{mt: 3}} style={{ color: "white" }}>
+            <Typography variant="h4" sx={{ mt: 3 }} style={{ color: "white" }}>
               Make an Appoinment Today
             </Typography>
             <Typography
-              variant="h6" sx={{my: 2}}
+              variant="h6"
+              sx={{ my: 2 }}
               style={{ color: "white", fontSiae: "14Px", fontWeight: 300 }}
             >
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae,
               necessitatibus blanditiis soluta exercitationem explicabo maxime
               quos at voluptas. Quod, minus.
             </Typography>
-            <Button variant="contained" style={{ backgroundColor: "#5CE7ED" }}>LEARN MORE</Button>
+            <Button variant="contained" style={{ backgroundColor: "#5CE7ED" }}>
+              LEARN MORE
+            </Button>
           </Box>
         </Grid>
       </Grid>
